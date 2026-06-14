@@ -6,34 +6,45 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <form position="inside">
-                <app
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="app_settings_block"
                     data-string="Crowdfunding"
                     string="Crowdfunding"
-                    name="crowdfunding"
-                    logo="/crowdfunding/static/description/icon.png"
+                    data-key="crowdfunding"
                     groups="crowdfunding.group_manager"
                 >
-                    <div id="crowdfunding">
-                        <block title="Crowdfunding" name="crowdfunding">
-                            <setting id="crowdfunding_product_id">
-                                <label for="crowdfunding_product_id" class="col-lg-3" />
-                                <field name="crowdfunding_product_id" required="True" />
-                            </setting>
-                            <setting id="crowdfunding_default_fee_percentage">
-                                <label
-                                    for="crowdfunding_default_fee_percentage"
-                                    class="col-lg-3"
-                                />
-                                <field
-                                    name="crowdfunding_default_fee_percentage"
-                                    widget="percentage"
-                                />
-                            </setting>
-                        </block>
+                    <h2>Crowdfunding</h2>
+                    <div class="row mt16 o_settings_container" id="crowdfunding">
+                        <div class="col-12 col-lg-6 o_setting_box" id="crowdfunding_product_id">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="crowdfunding_product_id" />
+                                <div class="text-muted">Default product used for crowdfunding pledges.</div>
+                                <div class="content-group mt16">
+                                    <field name="crowdfunding_product_id" required="True" />
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="crowdfunding_default_fee_percentage"
+                        >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="crowdfunding_default_fee_percentage" />
+                                <div class="text-muted">Default fee percentage for new challenges.</div>
+                                <div class="content-group mt16">
+                                    <field
+                                        name="crowdfunding_default_fee_percentage"
+                                        widget="percentage"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </app>
-            </form>
+                </div>
+            </xpath>
         </field>
     </record>
 

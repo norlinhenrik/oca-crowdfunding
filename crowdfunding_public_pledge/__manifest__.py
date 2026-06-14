@@ -4,7 +4,7 @@
 {
     "name": "Crowdfunding: Public pledges",
     "summary": "Allow users to mark their pledges as public",
-    "version": "18.0.1.0.0",
+    "version": "16.0.1.0.0",
     "development_status": "Alpha",
     "category": "Crowdfunding",
     "website": "https://github.com/OCA/crowdfunding",

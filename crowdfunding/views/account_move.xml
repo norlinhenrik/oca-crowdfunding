@@ -10,21 +10,21 @@
                 <page
                     name="crowdfunding"
                     string="Crowdfunding"
-                    invisible="not crowdfunding_challenge_id and state != 'draft'"
+                    attrs="{'invisible': [('crowdfunding_challenge_id', '=', False), ('state', '!=', 'draft')]}"
                 >
                     <group>
                         <field name="crowdfunding_challenge_id" />
                         <field
                             name="crowdfunding_target_amount"
-                            invisible="not crowdfunding_challenge_id"
+                            attrs="{'invisible': [('crowdfunding_challenge_id', '=', False)]}"
                         />
                         <field
                             name="crowdfunding_pledged_amount"
-                            invisible="not crowdfunding_challenge_id"
+                            attrs="{'invisible': [('crowdfunding_challenge_id', '=', False)]}"
                         />
                         <field
                             name="crowdfunding_vendor_amount"
-                            invisible="not crowdfunding_challenge_id"
+                            attrs="{'invisible': [('crowdfunding_challenge_id', '=', False)]}"
                         />
                     </group>
                 </page>

@@ -1,5 +1,7 @@
-import publicWidget from "@web/legacy/js/public/public_widget";
-import {rpc} from "@web/core/network/rpc";
+/** @odoo-module **/
+
+import ajax from "web.ajax";
+import publicWidget from "web.public.widget";
 
 export const CrowdfundingPublicPledgePortalInvoiceForm = publicWidget.Widget.extend({
     selector: ".crowdfunding_public_pledge_portal_invoice_form",
@@ -13,7 +15,7 @@ export const CrowdfundingPublicPledgePortalInvoiceForm = publicWidget.Widget.ext
         const access_token = new URLSearchParams(document.location.search).get(
             "access_token"
         );
-        await rpc(this.$el.data("flag-route"), {
+        await ajax.jsonRpc(this.$el.data("flag-route"), "call", {
             access_token: access_token,
             is_public: is_public,
         });

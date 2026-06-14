@@ -1,4 +1,6 @@
-import {registry} from "@web/core/registry";
+/** @odoo-module **/
+
+import tour from "web_tour.tour";
 
 export function crowdfunding_frontend_steps(values) {
     return [
@@ -74,22 +76,26 @@ export function crowdfunding_frontend_steps(values) {
     ];
 }
 
-registry.category("web_tour.tours").add("crowdfunding_frontend_us", {
-    test: true,
-    url: "/crowdfunding",
-    steps: () =>
-        crowdfunding_frontend_steps({
-            zip: "4242",
-            country: "United States",
-        }),
-});
+tour.register(
+    "crowdfunding_frontend_us",
+    {
+        test: true,
+        url: "/crowdfunding",
+    },
+    crowdfunding_frontend_steps({
+        zip: "4242",
+        country: "United States",
+    })
+);
 
-registry.category("web_tour.tours").add("crowdfunding_frontend_nl", {
-    test: true,
-    url: "/crowdfunding",
-    steps: () =>
-        crowdfunding_frontend_steps({
-            zip: "4242AB",
-            country: "Netherlands",
-        }),
-});
+tour.register(
+    "crowdfunding_frontend_nl",
+    {
+        test: true,
+        url: "/crowdfunding",
+    },
+    crowdfunding_frontend_steps({
+        zip: "4242AB",
+        country: "Netherlands",
+    })
+);

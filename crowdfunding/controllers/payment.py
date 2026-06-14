@@ -98,7 +98,7 @@ class Payment(PaymentPortal):
                 abs(float(kwargs["amount"])),
                 **self._crowdfunding_get_out_invoice_kwargs(challenge, partner, kwargs),
             )
-            invoice.action_post()
+            # invoice.action_post()
 
             kwargs["amount"] = invoice.amount_total
             kwargs["access_token"] = generate_access_token(

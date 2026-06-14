@@ -1,15 +1,18 @@
 <odoo>
     <template id="portal_invoice_page" inherit_id="account.portal_invoice_page">
-        <div t-if="invoice.invoice_user_id" position="after">
-            <div t-if="invoice.crowdfunding_challenge_id" class="flex-grow-1">
-                <h6>
-                    <small class="text-muted">Crowdfunding</small>
-                </h6>
+        <xpath expr="//li[@t-if='invoice.invoice_user_id']" position="after">
+            <li
+                t-if="invoice.crowdfunding_challenge_id"
+                class="list-group-item flex-grow-1 o_crowdfunding_portal_invoice"
+            >
+                <div class="small mb-1">
+                    <strong class="text-muted">Crowdfunding</strong>
+                </div>
                 <a
                     t-att-href="invoice.crowdfunding_challenge_id.website_url"
                     t-out="invoice.crowdfunding_challenge_id.display_name"
                 />
-            </div>
-        </div>
+            </li>
+        </xpath>
     </template>
 </odoo>

@@ -1,6 +1,6 @@
 <odoo>
-    <template id="portal_invoice_page" inherit_id="account.portal_invoice_page">
-        <div t-if="invoice.crowdfunding_challenge_id" position="inside">
+    <template id="portal_invoice_page" inherit_id="crowdfunding.portal_invoice_page">
+        <xpath expr="//li[hasclass('o_crowdfunding_portal_invoice')]" position="inside">
             <form
                 class="crowdfunding_public_pledge_portal_invoice_form"
                 t-if="invoice.payment_state == 'paid'"
@@ -26,6 +26,6 @@
                         My pledge
                     </a>
             </form>
-        </div>
+        </xpath>
     </template>
 </odoo>

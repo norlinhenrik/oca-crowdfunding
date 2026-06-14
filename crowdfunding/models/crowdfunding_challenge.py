@@ -173,7 +173,7 @@ class CrowdfundingChallenge(models.Model):
         for this in self:
             this.pledged_percentage = (
                 this.target_amount
-                and (this.pledged_amount / this.target_amount * 100)
+                and (this.pledged_amount_total / this.target_amount * 100)
                 or 0
             )
             this.funding_state = (
@@ -191,11 +191,13 @@ class CrowdfundingChallenge(models.Model):
                 invoices.filtered(
                     lambda x: x.state == "posted" and x.payment_state == "paid"
                 ).mapped("amount_total")
+                # invoices.mapped("amount_total")
             )
             this.pledged_amount_unpaid = (
                 sum(invoices.mapped("amount_total")) - this.pledged_amount
             )
             this.pledged_amount_total = this.pledged_amount + this.pledged_amount_unpaid
+            x = 1
 
     @api.depends(
         "vendor_bill_ids.amount_total",
@@ -218,7 +220,7 @@ class CrowdfundingChallenge(models.Model):
 
     def _compute_website_url(self):
         for this in self:
-            this.website_url = f"/crowdfunding/{self.env['ir.http']._slug(this)}"
+            this.website_url = f"/crowdfunding/{this.id}"
 
     def _compute_website_meta_description(self):
         for this in self:
@@ -227,7 +229,7 @@ class CrowdfundingChallenge(models.Model):
     def _compute_website_meta_og_img(self):
         for this in self:
             this.website_meta_og_img = (
-                f"/web/image/crowdfunding.challenge/{self.env['ir.http']._slug(this)}"
+                f"/web/image/crowdfunding.challenge/{this.id}"
                 "/description_image"
                 if this.description_image
                 else None

@@ -75,7 +75,7 @@
                         </div>
                         <div class="container">
                                 Amount pledged: <span
-                            t-field="object.pledged_amount"
+                            t-field="object.pledged_amount_total"
                         /> (<span t-esc="round(object.pledged_percentage)" />%)
                         </div>
                         <div class="container" t-if="object.description_url">

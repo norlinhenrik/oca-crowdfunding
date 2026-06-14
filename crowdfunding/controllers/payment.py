@@ -3,11 +3,14 @@
 
 
 import werkzeug
+import logging
 
 from odoo import _, http
 from odoo.http import request
 
 from odoo.addons.payment.controllers.portal import PaymentPortal
+
+_logger = logging.getLogger(__name__)
 
 
 class Payment(PaymentPortal):
@@ -64,6 +67,24 @@ class Payment(PaymentPortal):
     def _crowdfunding_get_out_invoice_kwargs(self, challenge, partner, kwargs):
         return {}
 
+    def _crowdfunding_send_confirmation_email(self, invoice):
+        template = request.env.ref(
+            "crowdfunding.mail_template_crowdfunding_pledge_confirmation",
+            raise_if_not_found=False,
+        )
+        if not template or not invoice.partner_id.email:
+            return
+        try:
+            template.sudo().with_context(lang=invoice.partner_id.lang).send_mail(
+                invoice.id,
+                force_send=True,
+            )
+        except Exception:
+            _logger.exception(
+                "Failed to send crowdfunding pledge confirmation for invoice %s",
+                invoice.id,
+            )
+
     @http.route(
         ["/crowdfunding/<model('crowdfunding.challenge'):challenge>/pay"],
         type="http",
@@ -97,6 +118,7 @@ class Payment(PaymentPortal):
                 abs(float(kwargs["amount"])),
                 **self._crowdfunding_get_out_invoice_kwargs(challenge, partner, kwargs),
             )
+            self._crowdfunding_send_confirmation_email(invoice)
             result = request.render(
                 "crowdfunding.pay_confirmed",
                 {

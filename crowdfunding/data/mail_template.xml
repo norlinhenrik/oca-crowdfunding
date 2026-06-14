@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="mail_template_crowdfunding_pledge_confirmation" model="mail.template">
+        <field name="name">Crowdfunding: Pledge confirmation</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="subject">Pledge confirmation: ${object.crowdfunding_challenge_id.name}</field>
+        <field name="email_from">${(object.company_id.email_formatted or user.email_formatted or '')|safe}</field>
+        <field name="email_to">${(object.partner_id.email or '')|safe}</field>
+        <field name="auto_delete" eval="True" />
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello <t t-out="object.partner_id.name" />,</p>
+                <p>
+                    Thank you for your pledge to
+                    <strong><t t-out="object.crowdfunding_challenge_id.name" /></strong>.
+                </p>
+                <p>
+                    Pledge amount:
+                    <strong>
+                        <t t-out="object.currency_id.name" />
+                        <t t-out="object.amount_total" />
+                    </strong>
+                </p>
+                <p>We have recorded your pledge and will contact you with payment details later.</p>
+            </div>
+        </field>
+    </record>
+</odoo>

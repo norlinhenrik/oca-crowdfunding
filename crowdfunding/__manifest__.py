@@ -18,6 +18,7 @@
     ],
     "data": [
         "data/product_product.xml",
+        "data/mail_template.xml",
         "data/website_menu.xml",
         "security/crowdfunding_security.xml",
         "security/ir.model.access.csv",

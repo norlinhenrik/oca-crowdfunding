@@ -165,4 +165,30 @@
             </div>
         </t>
     </template>
+
+    <template id="pay_confirmed">
+        <t t-call="portal.frontend_layout">
+            <t t-set="additional_title" t-value="object.name" />
+            <div class="wrap">
+                <div class="container mt-4">
+                    <h1 t-esc="object.name" />
+                </div>
+                <div class="container">
+                    <div class="alert alert-success" role="status">
+                        Thank you. Your pledge has been recorded.
+                    </div>
+                    <p>
+                        Pledge amount:
+                        <strong>
+                            <span t-esc="invoice.currency_id.name" />
+                            <span t-esc="invoice.amount_total" />
+                        </strong>
+                    </p>
+                    <a class="btn btn-primary" t-att-href="object.website_url">
+                        Back to challenge
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>

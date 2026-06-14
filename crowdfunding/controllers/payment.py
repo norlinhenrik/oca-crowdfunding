@@ -8,7 +8,6 @@ from odoo import _, http
 from odoo.http import request
 
 from odoo.addons.payment.controllers.portal import PaymentPortal
-from odoo.addons.payment.utils import generate_access_token
 
 
 class Payment(PaymentPortal):
@@ -98,15 +97,11 @@ class Payment(PaymentPortal):
                 abs(float(kwargs["amount"])),
                 **self._crowdfunding_get_out_invoice_kwargs(challenge, partner, kwargs),
             )
-            # invoice.action_post()
-
-            kwargs["amount"] = invoice.amount_total
-            kwargs["access_token"] = generate_access_token(
-                partner.id, invoice.amount_total, challenge.currency_id.id
+            result = request.render(
+                "crowdfunding.pay_confirmed",
+                {
+                    "object": challenge,
+                    "invoice": invoice,
+                },
             )
-            kwargs["company_id"] = invoice.company_id.id
-            kwargs["currency_id"] = challenge.currency_id.id
-            kwargs["invoice_id"] = invoice.id
-            kwargs["partner_id"] = partner.id
-            result = self.payment_pay(**kwargs)
         return result
